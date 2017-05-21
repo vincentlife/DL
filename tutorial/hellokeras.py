@@ -1,15 +1,18 @@
 from keras.models import Sequential
 model = Sequential()
-from keras.layers import Dense, Activation
+from keras.layers.recurrent import LSTM
+from keras.layers.embeddings import Embedding
+from keras.layers.core import Dropout,Dense,Activation
+from keras.utils import plot_model
+from keras import backend as K
 
-model.add(Dense(units=64, input_dim=100))
-model.add(Activation("relu"))
-model.add(Dense(units=10))
-model.add(Activation("softmax"))
-model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
-from keras.optimizers import SGD
-model.compile(loss='categorical_crossentropy', optimizer=SGD(lr=0.01, momentum=0.9, nesterov=True))
 
-model.fit(x_train, y_train, epochs=5, batch_size=32)
-loss_and_metrics = model.evaluate(x_test, y_test, batch_size=128)
-classes = model.predict(x_test, batch_size=128)
+model = Sequential()
+model.add(Embedding(400, 256))
+model.add(LSTM(units=256)) # try using a GRU instead, for fun
+model.add(Dropout(0.5))
+model.add(Dense(units=128))
+model.add(Activation('sigmoid'))
+with K.get_session():
+    model.compile(loss='binary_crossentropy', optimizer='adam', class_mode="binary")
+    model.summary()

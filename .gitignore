@@ -1,5 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 *.tfrecords
 *.txt
+*.xls
+*.png
 /.idea/*
 /tutorial/MNIST_data/*
