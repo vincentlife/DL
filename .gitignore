@@ -3,5 +3,6 @@
 *.txt
 *.xls
 *.png
+*.gz
 /.idea/*
-/tutorial/MNIST_data/*
+/tutorial_tf/MNIST_data/*
